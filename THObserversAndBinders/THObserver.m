@@ -74,6 +74,11 @@ typedef enum THObserverBlockArgumentsKind {
                         change:(NSDictionary *)change
                        context:(void *)context
 {
+    if (!_observedObject || !_block || !_keyPath) {
+        NSLog(@"%@ - THObserver already been deallocated!",self);
+        return;
+    }
+    
     switch((THObserverBlockArgumentsKind)context) {
         case THObserverBlockArgumentsNone:
             ((THObserverBlock)_block)();
